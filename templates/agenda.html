@@ -1,0 +1,13 @@
+{% extends "model-page.html" %}
+
+{% block content %}
+    <h1> Agendamentos</h1>
+    <ul>
+        {% for evento in eventos %}
+        <li>Titulo: {{evento.titulo}}</li>
+        <li>Data do Evento: {{evento.get_data_evento}}</li>
+        <li>Horario: {{evento.get_hora_evento}}</li><br>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
