@@ -18,6 +18,9 @@ class Evento(models.Model):
     def get_hora_evento(self):
         return self.data_evento.strftime('%H:%M')
 
+    def get_data_evento_input(self):
+        return self.data_evento.strftime('%Y-%m-%dT%H:%M')
+
 
 
 
