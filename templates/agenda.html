@@ -5,22 +5,29 @@
     <a href="evento/">
         <button type="button">Novo Evento</button>
     </a>
-    <ul>
-        {% for evento in eventos %}
-        <li>Titulo: {{evento.titulo}}</li>
-        <li>Data do Evento: {{evento.get_data_evento}}</li>
-        <li>Horario: {{evento.get_hora_evento}}</li><br>
-        <li>Local: {{evento.local}}</li><br>
-        <li>Descrição: {{evento.descricao}}</li><br>
-        <a href="evento/?id={{evento.id}}">
-            <button type="button">Editar</button>
-        </a>
-        <a href="evento/delete/{{evento.id}}/">
-            <button type="button">Excluir</button>
-        </a>
-        <br>
-        ---------------------------------------------------
-        {% endfor %}
-    </ul>
+
+        <ul>
+            {% for evento in eventos %}
+                <div style={% if evento.get_evento_atrasado %}
+                            "color:red"
+                           {% endif %}>
+                    <li>Titulo: {{evento.titulo}}</li>
+                    <li>Data do Evento: {{evento.get_data_evento}}</li>
+                    <li>Horario: {{evento.get_hora_evento}}</li><br>
+                    <li>Local: {{evento.local}}</li><br>
+                    <li>Descrição: {{evento.descricao}}</li><br>
+                    <a href="evento/?id={{evento.id}}">
+                        <button type="button">Editar</button>
+                    </a>
+                    <a href="evento/delete/{{evento.id}}/">
+                        <button type="button">Excluir</button>
+                    </a>
+                    <br>
+                </div>
+                ---------------------------------------------------
+            {% endfor %}
+        </ul>
+
+
 {% endblock %}
 
