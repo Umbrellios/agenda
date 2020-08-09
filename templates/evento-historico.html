@@ -1,0 +1,21 @@
+{% extends "model-page.html" %}
+{% block content %}
+
+ <h2> Eventos Passados</h2>
+    <a href="/">
+        <button type="button">Voltar</button>
+    </a>
+        <ul>
+            {% for evento in eventos %}
+                <div style="color:red"
+                    <li>Titulo: {{evento.titulo}}</li>
+                    <li>Data do Evento: {{evento.get_data_evento}}</li>
+                    <li>Horario: {{evento.get_hora_evento}}</li><br>
+                    <li>Local: {{evento.local}}</li><br>
+                    <li>Descrição: {{evento.descricao}}</li><br>
+                </div>
+                ---------------------------------------------------
+            {% endfor %}
+        </ul>
+
+{% endblock %}

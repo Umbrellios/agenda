@@ -5,12 +5,18 @@
     <a href="evento/">
         <button type="button">Novo Evento</button>
     </a>
+    <a href="historico/">
+        <button type="button">Eventos Passados</button>
+    </a>
 
         <ul>
             {% for evento in eventos %}
                 <div style={% if evento.get_evento_atrasado %}
-                            "color:red"
-                           {% endif %}>
+                                "color:red"
+                           {% endif %}
+                            {% if evento.get_evento_proximo %}
+                                "color:yellow"
+                            {% endif %}>
                     <li>Titulo: {{evento.titulo}}</li>
                     <li>Data do Evento: {{evento.get_data_evento}}</li>
                     <li>Horario: {{evento.get_hora_evento}}</li><br>

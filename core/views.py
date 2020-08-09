@@ -25,10 +25,24 @@ def login_user(request):
 def lista_evento(request):
     usuario = request.user
     data_atual = datetime.now() - timedelta(hours=1)
-    evento = Evento.objects.filter(usuario=usuario,
-                                   data_evento__gt=data_atual)
+    try:
+        evento = Evento.objects.filter(usuario=usuario,
+                                       data_evento__gt=data_atual)
+    except Exception:
+        raise Http404()
     dados_evento = {'eventos' : evento}
     return render(request, 'agenda.html', dados_evento)
+
+@login_required(login_url='/login/')
+def lista_evento_historico(request):
+    usuario = request.user
+    try:
+        evento = Evento.objects.filter(usuario=usuario,
+                                       data_evento__lt=datetime.now())
+    except Exception:
+        raise Http404()
+    dados_evento = {'eventos' : evento}
+    return render(request, 'evento-historico.html', dados_evento)
 
 def submit_login(request):
     if request.POST:
@@ -49,12 +63,15 @@ def logout_user(request):
 @login_required(login_url='/login/')
 def evento (request):
     id_evento = request.GET.get('id')
+    usuario = request.user
     dados = {}
     if id_evento:
-        dados ['evento'] = Evento.objects.get(id=id_evento)
+        try:
+            dados ['evento'] = Evento.objects.get(id=id_evento)
+        except Exception:
+            raise Http404()
     return render(request, 'evento.html', dados)
 
-    return render(request, 'evento.html')
 
 def submit_evento(request):
     if request.POST:
@@ -65,12 +82,17 @@ def submit_evento(request):
         usuario = request.user
         id_evento = request.POST.get('id_evento')
         if id_evento:
-            evento = Evento.objects.get(id=id_evento)
+            try:
+                evento = Evento.objects.get(id=id_evento)
+            except Exception:
+                raise Http404()
             if evento.usuario == usuario:
                 Evento.objects.filter(id=id_evento).update(titulo=titulo,
                                                        data_evento=data_evento,
                                                        descricao=descricao,
                                                        local=local)
+            else:
+                raise Http404()
         else:
             Evento.objects.create(titulo=titulo,
                                   data_evento=data_evento,

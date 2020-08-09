@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('eventos/<titulo_evento>', views.consulta_evento),
     path('agenda/', views.lista_evento),
+    path('agenda/historico/', views.lista_evento_historico),
     # path('agenda/lista/', views.json_lista_evento),
     path('agenda/lista/<int:id_usuario>/', views.json_lista_evento),
     # path('', views.index)
